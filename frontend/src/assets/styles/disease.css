@@ -1,0 +1,264 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: cyan;
+    width: 100vw;
+    padding: 15px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.navbar span {
+    font-size: 20px;
+    margin-left: 20px; /* Adjusted margin for proper alignment */
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+}
+
+.upload-box {
+    border: 2px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute; /* Change position to absolute */
+    left: 100px; /* Adjust left position */
+    top: 250px; /* Adjust top position */
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-logo {
+    width: 60px;
+}
+
+.upload-placeholder span {
+    display: block;
+    margin-top: 10px;
+}
+.dropdown-item-disease {
+    display: block;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    position: relative;
+    border: 0;
+    text-decoration: none; /* Remove underline */
+}
+.dropdown-menu-home-disease {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 30px;
+    margin-right: 10px;
+    z-index: 1000;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+} 
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.input-field {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 200px;
+  }
+  .clear-button {
+    top: 380px;
+  right: -925px;
+  transform: translateY(-50%);
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+  width: 300px;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  font-style: italic;/* Ensure logo doesn't overflow */
+  font-weight: bold;
+}
+
+.logo {
+    left: 20px;
+    position: absolute;
+    height: 50px;
+    width: auto; /* Let the width adjust according to the image */
+    transition: opacity 0.3s; /* Add transition effect */
+}
+
+.clear-button:hover .logo {
+    opacity: 0.8; /* Reduce opacity on hover */
+}
+
+.clear-button:hover {
+    color: white; /* Change text color on hover */
+    background-color: darkred; /* Change background color on hover */
+}
+
+.clear-button:active {
+    background-color: firebrick; /* Change background color on click */
+}
+  .captured-image-container {
+    position: relative; /* Set container position to relative */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    height: 100%; /* Set container height */
+}
+
+.input-field {
+    width: 300px; /* Increase input box width */
+    /* Other input box styles */
+}
+
+
+.clear-button,
+.input-field {
+    margin-top: 10px; /* Add margin between input box and clear button */
+}
+
+
+.capture-button-container {
+    position: absolute;
+    display: flex;
+    left: 120px;
+    top: 520px;
+    width: 600px;
+    height: 50px;
+  }
+
+.capture-button {
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: black;
+    display: flex;
+    align-items: center;
+    position: relative; /* Ensure button position is relative */
+    padding: 10px 20px; /* Add padding for spacing */
+}
+
+.logo-cap {
+    margin-right: 10px; /* Add margin for spacing between logo and text */
+    transition: opacity 0.3s; /* Add transition effect */
+}
+
+.capture-button-image{
+    margin-top: 15px;
+    background-color: #007bff; /* Change the background color */
+    color: white; /* Set text color to white */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding */
+    font-size: 20px; /* Set font size */
+    cursor: pointer; /* Change cursor on hover */
+    border-radius: 5px; /* Add border radius */
+    transition: background-color 0.3s; /* Add smooth transition */
+    width: 450px; 
+}
+
+.capture-button:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
+.arrow-logo {
+    position: absolute; /* Change position to absolute */
+    left: 375px; /* Adjust left position */
+    top: 50px; /* Adjust top position */
+}
+.result-input {
+    width: 600px;
+    height: 400px;
+    padding: 20px; /* Increase padding for better spacing */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    position: absolute;
+    right: -1075px;
+    top: -90px;
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+.result-input h1 {
+    margin: 10px 0; /* Add margin to separate heading elements */
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.loading-res {
+    position: absolute;
+    color: Blue;
+    left: 20%;
+    margin-top: 20px;
+
+}
+.loading h1 {
+    color: red; /* Set the desired color */
+}
+.stamp {
+    text-align: center; /* Center stamp horizontally */
+}
+
+
+
+.loader {
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
