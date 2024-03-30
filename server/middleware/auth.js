@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 dotenv.config({ path: "../.env" });
 const secret = process.env.JWT_secret
 const signToken = (username, email, avatar) => {
@@ -52,4 +53,13 @@ const signToken = (username, email, avatar) => {
       next();
     });
   }
-  module.exports ={createAndSendToken,verifyToken}
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.ethereal.email",
+    port: 587,
+    auth: {
+      user: process.env.sendotpusername,
+      pass: process.env.sendotppassword,
+    },
+  });
+  module.exports ={createAndSendToken,verifyToken,transporter}

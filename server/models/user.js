@@ -28,6 +28,9 @@ const user = new mongoose.Schema(
         avatarUrl:{
             type: String,
         },
+        otp:{
+            type: Number,
+        },
     },
     {
         timestamps: true,

@@ -5,7 +5,7 @@ const {
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config({ path: "../.env" });
-const {createAndSendToken}=require('../middleware/auth')
+const {createAndSendToken,transporter}=require('../middleware/auth')
 const cloudinary = require("cloudinary").v2;
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_secret
@@ -18,23 +18,22 @@ cloudinary.config({
     const { FullName, email, password, confirmPassword, indetityNumber } = req.body;
 
     try {
-        // Check if password and confirmPassword match
+        
         if (password !== confirmPassword) {
             return res.status(400).json({ message: "Password and confirmPassword do not match" });
         }
 
-        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
         const hashedindetityNumber = await bcrypt.hash(indetityNumber, 10);
 
 
-        let avatarUrl = null; // Initialize avatarUrl to null
+        let avatarUrl = null; 
 
 
         if (req.file && req.file.path) {
-            // Upload image to cloudinary
+         
             const result = await cloudinary.uploader.upload(req.file.path);
-            avatarUrl = result.url; // Set avatarUrl to the uploaded image URL
+            avatarUrl = result.url; 
         }
 
         // Create a new user
@@ -44,13 +43,13 @@ cloudinary.config({
             Password: hashedPassword,
             ConfirmPassword: hashedPassword, // Store hashedPassword in ConfirmPassword field
             IdentityNumber: hashedindetityNumber,
-            avatarUrl: avatarUrl, // Set avatarUrl
+            avatarUrl: avatarUrl, 
         });
 
-        // Save the new user to the database
+        
         await newUser.save();
         createAndSendToken(newUser, 201, res);
-        // return res.status(200).json({ message: "Signup successful" });
+        
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Internal server error", error: err });
@@ -104,4 +103,88 @@ async function welcome(req, res) {
       res.status(401).json({ error: "Invalid token"});
     }
   }
-module.exports = { Register,login,welcome,decodeJWT}
+  async function generateOtp(req, res) {
+    const email = req.body;
+    let newotp = "";
+    for (let i = 0; i <= 3; i++) {
+      newotp += Math.floor(Math.random() * 10).toString();
+    }
+    try {
+      const user = await UserModel.findOneAndUpdate(
+        email,
+        { $set: { otp: newotp } },
+        { new: true }
+      );
+      const mailOptions = {
+        from: "bikikutta25@gmail.com",
+        to: email.email,
+        subject: "OTP-Verification",
+        text: `Please use the code below to confirm your email address. This code will expire in 2 hours. If you don't think you should be receiving this email, you can safely ignore it. 
+          ${newotp}`,
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+      if (user) {
+        res.status(200).send({ message: "Otp Success" });
+      } else {
+        res.status(404).send({ message: "No existing admin found" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "OTP generation failed" });
+    }
+  }
+  
+  async function otpValidation(req, res) {
+    const { email, otp, newPassword } = req.body;
+    console.log(email, newPassword,otp);
+    const hashednewPassword = await bcrypt.hash(newPassword, 10);
+
+    console.log(email);
+    console.log(otp);
+    try {
+        const user = await UserModel.findOneAndUpdate(
+            { email: email, otp: otp },
+            { 
+                $set: { 
+                  Password: hashednewPassword,
+                  ConfirmPassword: hashednewPassword 
+                } 
+            },
+            { new: true }
+        );
+        if (user) {
+            console.log("Validation Success");
+            res.status(202).json({ success: true });
+        } else {
+            console.log("Validation Failed");
+            res.status(401).json("Invalid OTP");
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(502).send({ message: "OTP validation failed, Internal server error" });
+    }
+}
+
+
+  
+  /*async function resetPassword(req, res) {
+    const { email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await UserModel.findOneAndUpdate(
+      { email: email },
+      { $set: { password: hashedPassword } },
+      { new: true }
+    );
+    if (user) {
+      res.status(201).send({ message: "Password reseted" });
+    } else {
+      res.status(502).send("password reset process failed");
+    }
+  }*/
+module.exports = { Register,login,welcome,decodeJWT,generateOtp,otpValidation}
