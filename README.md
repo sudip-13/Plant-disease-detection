@@ -6,24 +6,25 @@ docker pull tensorflow/serving
 
 # To Start docker container
 
-This directory peeeper disease classification
+### This directory peeeper disease classification
 
 docker run -it -v D:\plant\peeper-disease:/peeper-disease -p 8501:8501 --entrypoint /bin/bash tensorflow/serving
-# To serve only latest models
-tensorflow_model_server --rest_api_port=8501 --model_name=peeper-disease --model_base_path=/peeper-disease/Models/
 
-This directory potato disease classification
-
+### This directory potato disease classification
 docker run -it -v D:\plant\potato-disease:/potato-disease -p 8601:8601 --entrypoint /bin/bash tensorflow/serving
 
-# To serve only latest models
-tensorflow_model_server --rest_api_port=8601 --model_name=potato-disease --model_base_path=/potato-disease/Models/
-
-This directory tomato disease classification
-
+### This directory tomato disease classification
 docker run -it -v D:\plant\tomato-disease:/tomato-disease -p 8701:8701 --entrypoint /bin/bash tensorflow/serving
 
 # To serve only latest models
+
+### peeeper disease classification
+tensorflow_model_server --rest_api_port=8501 --model_name=peeper-disease --model_base_path=/peeper-disease/Models/
+
+### potato disease classification
+tensorflow_model_server --rest_api_port=8601 --model_name=potato-disease --model_base_path=/potato-disease/Models/
+
+### tomato disease classification
 tensorflow_model_server --rest_api_port=8701 --model_name=tomato-disease --model_base_path=/tomato-disease/Models/
 
 
