@@ -41,4 +41,4 @@ tensorflow_model_server --rest_api_port=8701 --model_name=tomato-disease --model
 
 For pepper plants, an enhanced lightweight model based on GoogLeNet architecture was introduced for disease detection.
 
-[![Watch the video](https://vimeo.com/user212509052)](https://vimeo.com/user212509052)
+[![Watch the video](https://vimeo.com/929143932)](https://vimeo.com/929143932)
